@@ -3,12 +3,15 @@ version: 2.1
 jobs:
   build-and-test:
     machine:
-      image: ubuntu-2004:2023.07.1
+      image: ubuntu-2204:2024.01.2
 
     steps:
       - checkout
-      - run: make deps
-      - run: make test
+      - run: python3 -m venv .venv
+      - run: . .venv/bin/activate && make deps
+      - run: . .venv/bin/activate && make lint
+      - run: . .venv/bin/activate && make test
+      - run: make docker_build
 
 workflows:
   basic:
