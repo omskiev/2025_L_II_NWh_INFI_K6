@@ -4,6 +4,7 @@ jobs:
   build-and-test:
     machine:
       image: ubuntu-2204:2024.01.2
+      docker_layer_caching: true
 
     steps:
       - checkout
@@ -12,6 +13,7 @@ jobs:
       - run: . .venv/bin/activate && make lint
       - run: . .venv/bin/activate && make test
       - run: make docker_build
+      - run: make docker_push
 
 workflows:
   basic:
